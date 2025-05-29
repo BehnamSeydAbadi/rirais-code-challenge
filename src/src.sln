@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rirais.Application", "rirai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rirais.Infrastructure", "rirais.Infrastructure\rirais.Infrastructure.csproj", "{4DB326EB-1EB2-4703-853B-91B13DB98C08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rirais.Domain.Tests", "rirais.Domain.Tests\rirais.Domain.Tests.csproj", "{06F726AA-DC29-463A-A0E9-CF89DD380025}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,5 +39,9 @@ Global
 		{4DB326EB-1EB2-4703-853B-91B13DB98C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DB326EB-1EB2-4703-853B-91B13DB98C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DB326EB-1EB2-4703-853B-91B13DB98C08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06F726AA-DC29-463A-A0E9-CF89DD380025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06F726AA-DC29-463A-A0E9-CF89DD380025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06F726AA-DC29-463A-A0E9-CF89DD380025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06F726AA-DC29-463A-A0E9-CF89DD380025}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
