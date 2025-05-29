@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using rirais.Domain.Common;
 using rirais.Domain.User;
 
 namespace rirais.Infrastructure.Persistence.User;
@@ -21,16 +22,24 @@ public class UserRepository : IUserRepository
             : await _dbContext.Set<UserEntity>().AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
     }
 
-    public async Task<UserEntity[]> GetAsync(bool allowTracking = false)
+    public async Task<UserEntity[]> GetAsync(bool allowTracking = false, params AbstractSpecification[] specifications)
     {
+        var query = UserSpecificationApplyer.Apply(_dbContext.Set<UserEntity>().AsQueryable(), specifications);
+
         return allowTracking
-            ? await _dbContext.Set<UserEntity>().ToArrayAsync()
-            : await _dbContext.Set<UserEntity>().AsNoTracking().ToArrayAsync();
+            ? await query.ToArrayAsync()
+            : await query.AsNoTracking().ToArrayAsync();
     }
+
 
     public void Update(UserEntity entity) => _dbContext.Set<UserEntity>().Update(entity);
 
-    public void Delete(UserEntity entity) => _dbContext.Set<UserEntity>().Remove(entity);
+    public async Task<bool> AnyAsync(params AbstractSpecification[] specifications)
+    {
+        var query = UserSpecificationApplyer.Apply(_dbContext.Set<UserEntity>().AsQueryable(), specifications);
 
-    public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
+        return await query.AnyAsync();
+    }
+
+    public void Delete(UserEntity entity) => _dbContext.Set<UserEntity>().Remove(entity);
 }
