@@ -1,0 +1,7 @@
+﻿services:
+  rirais.webapi:
+    image: rirais.webapi
+    build:
+      context: .
+      dockerfile: rirais.WebApi/Dockerfile
+
