@@ -18,6 +18,7 @@ public class UserTests
 
         var user = UserEntity.Register(dto);
 
+        user.Id.Should().NotBe(Guid.Empty);
         user.FullName.FirstName.Should().Be(dto.FirstName);
         user.FullName.LastName.Should().Be(dto.LastName);
         user.NationalCode.Value.Should().Be(dto.NationalCode);
