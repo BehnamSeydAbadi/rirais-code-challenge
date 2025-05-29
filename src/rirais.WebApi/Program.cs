@@ -1,4 +1,6 @@
 using rirais.Application;
+using rirais.Infrastructure;
+using rirais.WebApi.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +10,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 ApplicationBootstrapper.Run(builder.Services);
+InfrastructureBootstrapper.Run(builder.Services, builder.Configuration);
 
 var app = builder.Build();
+
+UserEndpoints.Map(app);
 
 app.UseSwagger();
 app.UseSwaggerUI();

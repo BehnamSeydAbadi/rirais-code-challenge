@@ -15,7 +15,11 @@ public class UserEfConfiguration : IEntityTypeConfiguration<UserEntity>
             onb.Property(fn => fn.FirstName).HasMaxLength(64).IsRequired();
             onb.Property(fn => fn.LastName).HasMaxLength(64).IsRequired();
         });
-        builder.OwnsOne(u => u.NationalCode, onb => onb.Property(nc => nc.Value).HasMaxLength(10).IsRequired());
+        builder.OwnsOne(u => u.NationalCode, onb =>
+        {
+            onb.Property(nc => nc.Value).HasMaxLength(10).IsRequired();
+            onb.HasIndex(nc => nc.Value).IsUnique();
+        });
         builder.OwnsOne(u => u.DateOfBirth, onb => onb.Property(dob => dob.Value).IsRequired());
     }
 }
