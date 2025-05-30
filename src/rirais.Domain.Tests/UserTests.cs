@@ -48,31 +48,37 @@ public class UserTests
     {
         var dto = new UserDto
         {
-            FirstName = "",
+            FirstName = string.Empty,
             LastName = "Doe",
             NationalCode = "0019946163",
             DateOfBirth = new DateOnly(1997, 3, 27)
         };
 
-        var action = () => UserEntity.Register(dto);
+        var registerWithInvalidFirstNameAction = () => UserEntity.Register(dto);
+        registerWithInvalidFirstNameAction.Should().ThrowExactly<InvalidFullNameException>();
 
-        action.Should().ThrowExactly<InvalidFullNameException>();
+        dto.FirstName = "John";
+        dto.LastName = string.Empty;
+        var registerWithInvalidLastNameAction = () => UserEntity.Register(dto);
+        registerWithInvalidLastNameAction.Should().ThrowExactly<InvalidFullNameException>();
     }
 
     [Fact(DisplayName =
-        "When a user gets registered with invalid last name, Then an exception should be thrown")]
-    public void RegisterUserWithInvalidLastNameShouldThrowAnException()
+        "When a user gets registered with invalid date of birth, Then an exception should be thrown")]
+    public void RegisterUserWithInvalidDateOfBirthShouldThrowAnException()
     {
         var dto = new UserDto
         {
             FirstName = "John",
-            LastName = "",
+            LastName = "Doe",
             NationalCode = "0019946163",
-            DateOfBirth = new DateOnly(1997, 3, 27)
+            DateOfBirth = DateOnly.MinValue
         };
+        var registerWithMinDateOfBirthAction = () => UserEntity.Register(dto);
+        registerWithMinDateOfBirthAction.Should().ThrowExactly<InvalidDateOfBirthException>();
 
-        var action = () => UserEntity.Register(dto);
-
-        action.Should().ThrowExactly<InvalidFullNameException>();
+        dto.DateOfBirth = DateOnly.MaxValue;
+        var registerWithMaxDateOfBirthAction = () => UserEntity.Register(dto);
+        registerWithMaxDateOfBirthAction.Should().ThrowExactly<InvalidDateOfBirthException>();
     }
 }
