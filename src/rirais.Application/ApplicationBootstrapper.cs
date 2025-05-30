@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using rirais.Application.User.GetUser;
 using rirais.Application.User.GetUsers;
 using rirais.Application.User.Register;
+using rirais.Application.User.Unregister;
 using rirais.Application.User.UpdateUserDetails;
 using rirais.Application.User.ViewModels;
 using rirais.Domain.User;
@@ -15,6 +16,7 @@ public class ApplicationBootstrapper
     {
         serviceCollection.AddTransient<IRegisterApplicationService, RegisterApplicationService>();
         serviceCollection.AddTransient<IUpdateUserDetailsApplicationService, UpdateUserDetailsApplicationService>();
+        serviceCollection.AddTransient<IUnregisterUserApplicationService, UnregisterUserApplicationService>();
 
         serviceCollection.AddTransient<IGetUserApplicationService, GetUserApplicationService>();
         serviceCollection.AddTransient<IGetUsersApplicationService, GetUsersApplicationService>();

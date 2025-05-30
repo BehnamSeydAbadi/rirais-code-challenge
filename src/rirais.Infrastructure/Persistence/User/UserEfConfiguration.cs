@@ -22,5 +22,7 @@ public class UserEfConfiguration : IEntityTypeConfiguration<UserEntity>
             onb.HasIndex(nc => nc.Value).IsUnique();
         });
         builder.OwnsOne(u => u.DateOfBirth, onb => onb.Property(dob => dob.Value).IsRequired());
+
+        builder.HasQueryFilter(u => u.UnregisteredAt == null);
     }
 }

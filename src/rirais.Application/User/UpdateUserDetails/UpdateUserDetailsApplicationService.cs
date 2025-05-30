@@ -21,6 +21,8 @@ internal class UpdateUserDetailsApplicationService(IUnitOfWork unitOfWork) : IUp
 
         user.UpdateUserDetails(dto.FirstName, dto.LastName, dto.NationalCode, dto.DateOfBirth);
 
+        unitOfWork.UserRepository.Update(user);
+
         await unitOfWork.SaveChangesAsync();
     }
 }

@@ -3,6 +3,7 @@ using rirais.Application.User.Dto;
 using rirais.Application.User.GetUser;
 using rirais.Application.User.GetUsers;
 using rirais.Application.User.Register;
+using rirais.Application.User.Unregister;
 using rirais.Application.User.UpdateUserDetails;
 
 namespace rirais.WebApi.Endpoints;
@@ -38,6 +39,14 @@ public class UserEndpoints
         ) =>
         {
             await applicationService.HandleAsync(id, userDto);
+            return Results.Ok();
+        });
+
+        endpoints.MapDelete("api/users/{id:guid}", async (
+            [FromServices] IUnregisterUserApplicationService applicationService, [FromRoute] Guid id
+        ) =>
+        {
+            await applicationService.HandleAsync(id);
             return Results.Ok();
         });
     }

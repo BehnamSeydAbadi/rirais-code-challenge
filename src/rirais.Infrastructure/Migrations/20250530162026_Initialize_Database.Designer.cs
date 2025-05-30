@@ -12,8 +12,8 @@ using rirais.Infrastructure.Persistence;
 namespace rirais.Infrastructure.Migrations
 {
     [DbContext(typeof(RiRaDbContext))]
-    [Migration("20250529145642_Init_Database")]
-    partial class Init_Database
+    [Migration("20250530162026_Initialize_Database")]
+    partial class Initialize_Database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,12 @@ namespace rirais.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("RegisteredAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UnregisteredAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

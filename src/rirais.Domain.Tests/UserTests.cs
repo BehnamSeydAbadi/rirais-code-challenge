@@ -164,4 +164,50 @@ public class UserTests
         );
         updateWithMaxDateOfBirthAction.Should().ThrowExactly<InvalidDateOfBirthException>();
     }
+
+    [Fact(DisplayName =
+        "There is an unregistered user, When the user details gets updated, Then an exception should be thrown")]
+    public void UpdateUnregisteredUserShouldThrowAnException()
+    {
+        var user = UserEntity.Register(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+
+        user.Unregister();
+
+        var updateUnregisteredUserAction = () => user.UpdateUserDetails(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+        updateUnregisteredUserAction.Should().ThrowExactly<UnregisteredUserException>();
+    }
+
+
+    [Fact(DisplayName =
+        "There is a user already registered, When the user gets unregistered, Then the user should be unregistered successfully")]
+    public void UnregisterUserSuccessfully()
+    {
+        var user = UserEntity.Register(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+
+        user.Unregister();
+
+        user.UnregisteredAt.Should().NotBeNull();
+        user.UnregisteredAt.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(5));
+    }
+
+    [Fact(DisplayName =
+        "There is an unregistered user, When the user gets unregistered, Then an exception should be thrown")]
+    public void UnregisterAnUnregisteredUserShouldThrowAnException()
+    {
+        var user = UserEntity.Register(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+
+        user.Unregister();
+
+        var action = () => user.Unregister();
+
+        action.Should().ThrowExactly<UnregisteredUserException>();
+    }
 }

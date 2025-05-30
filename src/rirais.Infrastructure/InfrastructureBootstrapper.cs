@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using rirais.Application.UnitOfWork;
 using rirais.Domain.User;
 using rirais.Infrastructure.Persistence;
 using rirais.Infrastructure.Persistence.User;
@@ -16,5 +17,6 @@ public class InfrastructureBootstrapper
         );
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

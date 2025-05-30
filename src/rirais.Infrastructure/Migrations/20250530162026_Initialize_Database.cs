@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace rirais.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init_Database : Migration
+    public partial class Initialize_Database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,9 @@ namespace rirais.Infrastructure.Migrations
                     FullName_FirstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     FullName_LastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     NationalCode_Value = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    DateOfBirth_Value = table.Column<DateOnly>(type: "date", nullable: false)
+                    DateOfBirth_Value = table.Column<DateOnly>(type: "date", nullable: false),
+                    RegisteredAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UnregisteredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

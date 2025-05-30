@@ -41,5 +41,5 @@ public class UserRepository : IUserRepository
         return await query.AnyAsync();
     }
 
-    public void Delete(UserEntity entity) => _dbContext.Set<UserEntity>().Remove(entity);
+    public void Delete(UserEntity entity) => _dbContext.Set<UserEntity>().Update(entity);
 }
