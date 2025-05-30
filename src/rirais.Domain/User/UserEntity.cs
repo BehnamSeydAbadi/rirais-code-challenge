@@ -1,4 +1,3 @@
-using rirais.Domain.User.Dto;
 using rirais.Domain.User.ValueObjects;
 
 namespace rirais.Domain.User;
@@ -9,15 +8,22 @@ public class UserEntity
     {
     }
 
-    public static UserEntity Register(UserDto dto)
+    public static UserEntity Register(string firstName, string lastName, string nationalCode, DateOnly dateOfBirth)
     {
         return new UserEntity
         {
             Id = Guid.NewGuid(),
-            FullName = new FullName(dto.FirstName, dto.LastName),
-            NationalCode = new NationalCode(dto.NationalCode),
-            DateOfBirth = new DateOfBirth(dto.DateOfBirth)
+            FullName = new FullName(firstName, lastName),
+            NationalCode = new NationalCode(nationalCode),
+            DateOfBirth = new DateOfBirth(dateOfBirth)
         };
+    }
+
+    public void UpdateUserDetails(string firstName, string lastName, string nationalCode, DateOnly dateOfBirth)
+    {
+        FullName = new FullName(firstName, lastName);
+        NationalCode = new NationalCode(nationalCode);
+        DateOfBirth = new DateOfBirth(dateOfBirth);
     }
 
     public Guid Id { get; private set; }

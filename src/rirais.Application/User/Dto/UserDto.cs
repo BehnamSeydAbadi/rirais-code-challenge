@@ -1,4 +1,4 @@
-namespace rirais.Domain.User.Dto;
+namespace rirais.Application.User.Dto;
 
 public record UserDto
 {

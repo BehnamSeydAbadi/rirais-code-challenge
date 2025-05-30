@@ -1,4 +1,4 @@
-using rirais.Domain.User.Dto;
+using rirais.Application.User.Dto;
 
 namespace rirais.Application.User.Register;
 
