@@ -145,4 +145,23 @@ public class UserTests
         );
         updateWithInvalidLastNameAction.Should().ThrowExactly<InvalidFullNameException>();
     }
+
+    [Fact(DisplayName =
+        "There is a user already registered, When his date of birth gets updated with invalid value, Then an exception should be thrown")]
+    public void UpdateUserInformationWithInvalidDateOfBirthShouldThrowAnException()
+    {
+        var user = UserEntity.Register(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+
+        var updateWithMinDateOfBirthAction = () => user.UpdateUserDetails(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: DateOnly.MinValue
+        );
+        updateWithMinDateOfBirthAction.Should().ThrowExactly<InvalidDateOfBirthException>();
+
+        var updateWithMaxDateOfBirthAction = () => user.UpdateUserDetails(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: DateOnly.MaxValue
+        );
+        updateWithMaxDateOfBirthAction.Should().ThrowExactly<InvalidDateOfBirthException>();
+    }
 }
