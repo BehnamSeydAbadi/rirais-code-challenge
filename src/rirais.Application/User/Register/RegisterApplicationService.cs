@@ -1,6 +1,6 @@
 using rirais.Application.UnitOfWork;
 using rirais.Application.User.Dto;
-using rirais.Application.User.Register.Exceptions;
+using rirais.Application.User.Exceptions;
 using rirais.Domain.User;
 using rirais.Domain.User.Specifications;
 

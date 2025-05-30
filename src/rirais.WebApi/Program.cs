@@ -14,6 +14,8 @@ InfrastructureBootstrapper.Run(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 UserEndpoints.Map(app);
 
 app.UseSwagger();
