@@ -126,4 +126,23 @@ public class UserTests
 
         action.Should().ThrowExactly<InvalidNationalCodeException>();
     }
+
+    [Fact(DisplayName =
+        "There is a user already registered, When his first name or last name gets updated with invalid value, Then an exception should be thrown")]
+    public void UpdateUserInformationWithInvalidFirstNameOrLastNameShouldThrowAnException()
+    {
+        var user = UserEntity.Register(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+
+        var updateWithInvalidFirstNameAction = () => user.UpdateUserDetails(
+            firstName: "", lastName: "y", nationalCode: "0", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+        updateWithInvalidFirstNameAction.Should().ThrowExactly<InvalidFullNameException>();
+
+        var updateWithInvalidLastNameAction = () => user.UpdateUserDetails(
+            firstName: "x", lastName: "", nationalCode: "0", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+        updateWithInvalidLastNameAction.Should().ThrowExactly<InvalidFullNameException>();
+    }
 }
