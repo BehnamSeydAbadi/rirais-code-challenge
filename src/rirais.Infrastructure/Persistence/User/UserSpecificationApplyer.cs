@@ -11,14 +11,14 @@ internal class UserSpecificationApplyer
     {
         foreach (var specification in specifications)
         {
-            query = Apply((dynamic)specification);
+            query = ApplySpecification(query, (dynamic)specification);
         }
 
         return query;
     }
 
 
-    private static IQueryable<UserEntity> Apply(
+    private static IQueryable<UserEntity> ApplySpecification(
         IQueryable<UserEntity> query, UserByNationalCodeSpecification specification
     ) => query.Where(u => u.NationalCode.Value == specification.NationalCode);
 }
