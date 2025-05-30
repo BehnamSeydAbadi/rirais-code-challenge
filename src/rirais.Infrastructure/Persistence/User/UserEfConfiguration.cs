@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using rirais.Domain.User;
+using rirais.Domain.User.ValueObjects;
 
 namespace rirais.Infrastructure.Persistence.User;
 
@@ -12,8 +13,8 @@ public class UserEfConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.HasKey(u => u.Id);
         builder.OwnsOne(u => u.FullName, onb =>
         {
-            onb.Property(fn => fn.FirstName).HasMaxLength(64).IsRequired();
-            onb.Property(fn => fn.LastName).HasMaxLength(64).IsRequired();
+            onb.Property(fn => fn.FirstName).HasMaxLength(FullName.FirstNameMaxLength).IsRequired();
+            onb.Property(fn => fn.LastName).HasMaxLength(FullName.LastNameMaxLength).IsRequired();
         });
         builder.OwnsOne(u => u.NationalCode, onb =>
         {

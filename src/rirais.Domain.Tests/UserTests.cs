@@ -41,4 +41,38 @@ public class UserTests
 
         action.Should().ThrowExactly<InvalidNationalCodeException>();
     }
+
+    [Fact(DisplayName =
+        "When a user gets registered with invalid first name, Then an exception should be thrown")]
+    public void RegisterUserWithInvalidFirstNameShouldThrowAnException()
+    {
+        var dto = new UserDto
+        {
+            FirstName = "",
+            LastName = "Doe",
+            NationalCode = "0019946163",
+            DateOfBirth = new DateOnly(1997, 3, 27)
+        };
+
+        var action = () => UserEntity.Register(dto);
+
+        action.Should().ThrowExactly<InvalidFullNameException>();
+    }
+
+    [Fact(DisplayName =
+        "When a user gets registered with invalid last name, Then an exception should be thrown")]
+    public void RegisterUserWithInvalidLastNameShouldThrowAnException()
+    {
+        var dto = new UserDto
+        {
+            FirstName = "John",
+            LastName = "",
+            NationalCode = "0019946163",
+            DateOfBirth = new DateOnly(1997, 3, 27)
+        };
+
+        var action = () => UserEntity.Register(dto);
+
+        action.Should().ThrowExactly<InvalidFullNameException>();
+    }
 }
