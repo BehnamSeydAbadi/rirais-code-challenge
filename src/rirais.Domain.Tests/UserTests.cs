@@ -1,5 +1,6 @@
 using rirais.Domain.User;
 using rirais.Domain.User.Dto;
+using rirais.Domain.User.Exceptions;
 
 namespace rirais.Domain.Tests;
 
@@ -12,7 +13,7 @@ public class UserTests
         {
             FirstName = "John",
             LastName = "Doe",
-            NationalCode = "0",
+            NationalCode = "0019946163",
             DateOfBirth = new DateOnly(1997, 3, 27)
         };
 
@@ -23,5 +24,21 @@ public class UserTests
         user.FullName.LastName.Should().Be(dto.LastName);
         user.NationalCode.Value.Should().Be(dto.NationalCode);
         user.DateOfBirth.Value.Should().Be(dto.DateOfBirth);
+    }
+
+    [Fact(DisplayName = "When a user gets registered with invalid national code, Then an exception should be thrown")]
+    public void RegisterUserWithInvalidNationalCodeShouldThrowAnException()
+    {
+        var dto = new UserDto
+        {
+            FirstName = "John",
+            LastName = "Doe",
+            NationalCode = "0",
+            DateOfBirth = new DateOnly(1997, 3, 27)
+        };
+
+        var action = () => UserEntity.Register(dto);
+
+        action.Should().ThrowExactly<InvalidNationalCodeException>();
     }
 }
