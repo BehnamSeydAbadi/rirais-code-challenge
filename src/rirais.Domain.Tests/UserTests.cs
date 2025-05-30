@@ -111,4 +111,19 @@ public class UserTests
         user.NationalCode.Value.Should().Be(dto.NationalCode);
         user.DateOfBirth.Value.Should().Be(dto.DateOfBirth);
     }
+
+    [Fact(DisplayName =
+        "There is a user already registered, When his national code gets updated with invalid value, Then an exception should be thrown")]
+    public void UpdateUserInformationWithInvalidNationalCodeShouldThrowAnException()
+    {
+        var user = UserEntity.Register(
+            firstName: "x", lastName: "y", nationalCode: "0023359865", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+
+        var action = () => user.UpdateUserDetails(
+            firstName: "x", lastName: "y", nationalCode: "0", dateOfBirth: new DateOnly(1900, 1, 1)
+        );
+
+        action.Should().ThrowExactly<InvalidNationalCodeException>();
+    }
 }
