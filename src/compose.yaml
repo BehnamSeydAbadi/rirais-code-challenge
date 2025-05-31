@@ -1,7 +1,41 @@
-﻿services:
-  rirais.webapi:
-    image: rirais.webapi
+﻿version: '3.8'
+
+services:
+  webapi:
     build:
       context: .
       dockerfile: rirais.WebApi/Dockerfile
+    ports:
+      - "5066:80"     # HTTP
+      - "5067:443"    # HTTPS
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+;http://+
+      - ASPNETCORE_Kestrel__Endpoints__Https__Url=https://+:443
+      - ASPNETCORE_Kestrel__Endpoints__Https__Certificate__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Endpoints__Https__Certificate__Password=Behnam@1
+    depends_on:
+      - sqlserver
+    networks:
+      - backend
+    volumes:
+      - ./rirais.WebApi/https:/https
 
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "Behnam@1"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
+    networks:
+      - backend
+
+volumes:
+  sqlvolume:
+
+networks:
+  backend:

@@ -16,17 +16,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="..\.dockerignore">
-            <Link>.dockerignore</Link>
-        </Content>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\rirais.Infrastructure\rirais.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
         <Protobuf Include="Protos\user.proto" GrpcServices="Server"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="https\" />
     </ItemGroup>
 
 </Project>
