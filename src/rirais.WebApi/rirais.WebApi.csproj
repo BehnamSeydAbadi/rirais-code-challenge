@@ -5,10 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" />
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore"/>
     </ItemGroup>
@@ -20,7 +22,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\rirais.Infrastructure\rirais.Infrastructure.csproj" />
+        <ProjectReference Include="..\rirais.Infrastructure\rirais.Infrastructure.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="Protos\user.proto" GrpcServices="Server"/>
     </ItemGroup>
 
 </Project>

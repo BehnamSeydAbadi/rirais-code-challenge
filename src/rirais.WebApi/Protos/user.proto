@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option csharp_namespace = "rirais.WebApi.Protos";
+
+package user;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service UserService {
+  rpc RegisterUser (UserDto) returns (UserIdReply);
+  rpc GetUser (UserIdRequest) returns (UserViewModel);
+  rpc GetAllUsers (google.protobuf.Empty) returns (UserViewModels);
+  rpc UpdateUser (UpdateUserRequest) returns (google.protobuf.Empty);
+  rpc DeleteUser (UserIdRequest) returns (google.protobuf.Empty);
+}
+
+message UserDto {
+  string firstName = 1;
+  string lastName = 2;
+  string nationalCode = 3;
+  google.protobuf.Timestamp dateOfBirth = 4;
+}
+
+message UserIdRequest {
+  string id = 1;
+}
+
+message UpdateUserRequest {
+  string id = 1;
+  UserDto user = 2;
+}
+
+message UserIdReply {
+  string id = 1;
+}
+
+message UserViewModel {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string nationalCode = 4;
+  google.protobuf.Timestamp dateOfBirth = 5;
+}
+
+message UserViewModels {
+  repeated UserViewModel users = 1;
+}
