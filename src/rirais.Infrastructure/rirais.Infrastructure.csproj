@@ -10,4 +10,10 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore">
+        <HintPath>..\..\..\..\..\..\..\usr\lib\dotnet\shared\Microsoft.AspNetCore.App\8.0.16\Microsoft.AspNetCore.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

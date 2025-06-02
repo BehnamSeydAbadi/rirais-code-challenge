@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,5 +19,12 @@ public class InfrastructureBootstrapper
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+    }
+
+    public static void CreateDatabase(WebApplication app)
+    {
+        using var serviceScope = app.Services.CreateScope();
+        using var dbContext = serviceScope.ServiceProvider.GetRequiredService<RiRaDbContext>();
+        dbContext.Database.Migrate();
     }
 }

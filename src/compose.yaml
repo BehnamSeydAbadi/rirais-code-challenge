@@ -6,12 +6,12 @@ services:
       context: .
       dockerfile: rirais.WebApi/Dockerfile
     ports:
-      - "5066:80"     # HTTP
-      - "5067:443"    # HTTPS
+      - "5066:8080"     # HTTP
+      - "5067:8081"     # HTTPS
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+;http://+
-      - ASPNETCORE_Kestrel__Endpoints__Https__Url=https://+:443
+      - ASPNETCORE_Kestrel__Endpoints__Https__Url=https://+:8081
       - ASPNETCORE_Kestrel__Endpoints__Https__Certificate__Path=/https/aspnetapp.pfx
       - ASPNETCORE_Kestrel__Endpoints__Https__Certificate__Password=Behnam@1
     depends_on:

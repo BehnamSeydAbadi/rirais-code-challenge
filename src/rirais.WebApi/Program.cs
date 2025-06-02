@@ -16,6 +16,8 @@ InfrastructureBootstrapper.Run(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
+InfrastructureBootstrapper.CreateDatabase(app);
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (builder.Configuration.GetValue<bool>("UseGrpc"))
