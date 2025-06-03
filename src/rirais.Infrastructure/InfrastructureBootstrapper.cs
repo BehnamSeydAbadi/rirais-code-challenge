@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using rirais.Application.UnitOfWork;
 using rirais.Domain.User;
 using rirais.Infrastructure.Persistence;
@@ -21,7 +21,7 @@ public class InfrastructureBootstrapper
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
-    public static void CreateDatabase(WebApplication app)
+    public static void CreateDatabase(IHost app)
     {
         using var serviceScope = app.Services.CreateScope();
         using var dbContext = serviceScope.ServiceProvider.GetRequiredService<RiRaDbContext>();
